@@ -231,10 +231,10 @@ static const Key keys[] = {
 
 
 /* application bindings */
-	{ MODKEY,			XK_m,          spawn,      {.v = (const char*[]){ "st", "-e", "termusic", NULL } } },
+	{ MODKEY,			XK_m,          spawn,      {.v = (const char*[]){ "ncspot", NULL } } },
 	{ MODKEY,			XK_b,          spawn,      {.v = (const char*[]){ BROWSER, NULL } } },
-	{ MODKEY|ShiftMask,		XK_f,          spawn,      {.v = (const char*[]){ "st", "-e", "fff", NULL } } },
-	{ MODKEY,			XK_n,          spawn,      {.v = (const char*[]){ "st", "-e", "nvim", NULL } } },
+	{ MODKEY|ShiftMask,		XK_f,          spawn,      {.v = (const char*[]){ "nautilus", NULL } } },
+	{ MODKEY,			XK_n,          spawn,      {.v = (const char*[]){ "kitty", "-e", "nvim", NULL } } },
 	{ MODKEY|ShiftMask,	XK_h,          spawn,      {.v = (const char*[]){ "st", "-e", "htop", NULL } } },
 	{ MODKEY|ShiftMask,	XK_p,          spawn,      {.v = (const char*[]){ "toggle-kitty-opacity", NULL } } },
 

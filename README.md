@@ -36,10 +36,97 @@ sudo make clean install
 * Basic ```~/.xinitrc``` requirement: ```exec dwm```
 
 * Configure settings (fonts, bindings, gap pixels, etc) in **config.def.h** before compiling.
-  - Defaults: Mod is bound to the windows key
-  - ```mod + enter``` to open terminal
-  - ```mod + q``` to quit window
-  - ```mod + shift + backspace``` to fully exit
+  - Mod key is bound to the Windows key by default
+
+## Basic Keybinds
+All keybinds use `Mod` (Windows key) unless otherwise specified.
+
+| Keybind | Action |
+|---------|--------|
+| `Mod + Enter` | Open terminal |
+| `Mod + P` | Launch dmenu |
+| `Mod + Q` | Kill focused window |
+| `Mod + Shift + Q` | Kill all windows except focused |
+| `Mod + Shift + Backspace` | Exit dwm |
+| `Mod + Ctrl + Shift + Q` | Refresh dwm (recompile and restart) |
+
+### Navigation & Focus
+| Keybind | Action |
+|---------|--------|
+| `Mod + J/K` | Focus next/previous window in stack |
+| `Mod + Shift + J/K` | Move focused window in stack |
+| `Mod + Tab` | Switch to previous tag |
+| `Mod + 1-9` | Switch to tag N |
+| `Mod + 0` | View all tags |
+| `Mod + Ctrl + 1-9` | Toggle view of tag N |
+| `Mod + Shift + 1-9` | Move focused window to tag N |
+
+### Layout & Window Management
+| Keybind | Action |
+|---------|--------|
+| `Mod + T` | Tiled layout |
+| `Mod + F` | Toggle fullscreen |
+| `Mod + Shift + M` | Monocle layout |
+| `Mod + S` | Spiral layout |
+| `Mod + Shift + T` | Dwindle layout |
+| `Mod + Ctrl + Space` | Cycle layout |
+| `Mod + Shift + Space` | Toggle floating |
+| `Mod + Space` | Zoom (promote to master) |
+| `Mod + Ctrl + Space` | Focus master |
+| `Mod + Shift + S` | Toggle sticky window |
+| `Mod + H/L` | Decrease/increase master area size |
+| `Mod + Shift + I` | Increase number of master windows |
+| `Mod + Ctrl + I` | Decrease number of master windows |
+
+### Gaps Control
+| Keybind | Action |
+|---------|--------|
+| `Mod + +/-` | Increase/decrease all gaps |
+| `Mod + Alt + I` | Increase/decrease inner gaps |
+| `Mod + Alt + O` | Increase/decrease outer gaps |
+| `Mod + Shift + =` | Toggle gaps |
+| `Mod + Shift + -` | Reset gaps to default |
+
+### Multi-Monitor
+| Keybind | Action |
+|---------|--------|
+| `Mod + [` | Focus next monitor |
+| `Mod + ]` | Focus previous monitor |
+| `Mod + Shift + [` | Move window to next monitor |
+| `Mod + Shift + ]` | Move window to previous monitor |
+
+### Applications
+| Keybind | Action |
+|---------|--------|
+| `Mod + M` | Open music player (ncspot) |
+| `Mod + B` | Open browser |
+| `Mod + N` | Open neovim (in kitty) |
+| `Mod + Shift + F` | Open file manager (nautilus) |
+| `Mod + Shift + H` | Open system monitor (htop) |
+| `Mod + V` | Open clipboard history |
+| `Mod + Shift + N` | Open notes menu |
+| `Mod + Shift + A` | Open video menu |
+| `Mod + Ctrl + A` | Switch audio output |
+| `Mod + Shift + W` | Wallpaper menu |
+
+### Screenshots & Misc
+| Keybind | Action |
+|---------|--------|
+| `Mod + Shift + F1` | Screenshot |
+| `Mod + Shift + F2` | Colored screenshot |
+| `Mod + Shift + F8` | Lock and suspend |
+| `Mod + F8` | Lock screen (slock) |
+| `Mod + F11` | Play/pause music (termusic) |
+| `Mod + F12` | Next track (termusic) |
+| `Mod + F10` | Previous track (termusic) |
+
+### Statusbar
+| Keybind | Action |
+|---------|--------|
+| `Mod + Shift + B` | Toggle bar visibility |
+| `Mod + Ctrl + X` | Refresh colors (xrdb) |
+
+**Note:** These bindings can be customized in `config.h` before compiling.
 
 
 I use [dwmblocks](https://github.com/torrinfail/dwmblocks) for my statusbar ([bar scripts](https://github.com/BreadOnPenguins/scripts)), included in ```~/.xprofile``` with ```exec dwmblocks```.
