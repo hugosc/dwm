@@ -250,10 +250,15 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_grave,  spawn,       {.v = (const char*[]){ "define", NULL } } },
 	{ MODKEY|ShiftMask,		XK_w,      spawn,       SHCMD("/home/croc/.config/scripts/images-photos-wallpapers/fzfub-wallpapermenu") },
 	/* ThinkPad media keys (F1-F4): F1=mute, F2=vol-, F3=vol+, F4=mic-mute */
-	{ 0,					XF86XK_AudioMute,          spawn,       SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
-	{ 0,					XF86XK_AudioLowerVolume,   spawn,       SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
-	{ 0,					XF86XK_AudioRaiseVolume,   spawn,       SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
-	{ 0,					XF86XK_AudioMicMute,       spawn,       SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
+	{ 0,				XF86XK_AudioMute,          spawn,       SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
+	{ 0,				XF86XK_AudioLowerVolume,   spawn,       SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
+	{ 0,				XF86XK_AudioRaiseVolume,   spawn,       SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
+	{ 0,				XF86XK_AudioMicMute,       spawn,       SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
+
+	/* brightness keys */
+	{ 0,				XF86XK_MonBrightnessUp,    spawn,       SHCMD("brightnessctl set +5%") },
+	{ 0,				XF86XK_MonBrightnessDown,  spawn,       SHCMD("brightnessctl set 5%-") },
+
 	
 	/* screenshot binds */
 	{ MODKEY|ShiftMask,		XK_s,      spawn,       SHCMD("screenshot full") },
