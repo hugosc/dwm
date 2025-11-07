@@ -181,7 +181,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,				XK_space,  togglefloating, {0} },
 	{ MODKEY,						XK_space,  zoom,           {0} },
 	{ MODKEY|ControlMask,           XK_space,  focusmaster,    {0} },
-	{ MODKEY|ShiftMask,             XK_s,      togglesticky,   {0} },
+	{ MODKEY,                       XK_s,      togglesticky,   {0} },
 
 
 /* multi-monitor control */
@@ -255,7 +255,8 @@ static const Key keys[] = {
 	{ 0,					XF86XK_AudioRaiseVolume,   spawn,       SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
 	{ 0,					XF86XK_AudioMicMute,       spawn,       SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle") },
 	
-	/* screenshot binds moved to MODKEY+Shift+F1/F2/F3 */
+	/* screenshot binds */
+	{ MODKEY|ShiftMask,		XK_s,      spawn,       SHCMD("screenshot full") },
 	{ MODKEY|ShiftMask,		XK_F1,     spawn,       SHCMD("screenshot") },
 	{ MODKEY|ShiftMask,		XK_F2,     spawn,       SHCMD("screenshot color") },
 	{ MODKEY|ShiftMask,		XK_F3,     spawn,       {.v = (const char*[]){ "phototransfer", NULL } } },
