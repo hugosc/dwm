@@ -1,0 +1,35 @@
+[2025-11-07][00:16:52] [ncspot::authentication] [INFO] Using cached credentials
+[2025-11-07][00:16:52] [ncspot::spotify] [DEBUG] No HTTP proxy set
+[2025-11-07][00:16:52] [librespot_core::session] [DEBUG] new Session
+[2025-11-07][00:16:52] [librespot::component] [DEBUG] new ApResolver
+[2025-11-07][00:16:52] [librespot_core::http_client] [DEBUG] Requesting https://apresolve.spotify.com/?type=accesspoint&type=dealer&type=spclient
+[2025-11-07][00:16:52] [librespot_core::session] [INFO] Connecting to AP "ap-gew1.spotify.com:4070"
+[2025-11-07][00:16:52] [librespot_core::connection] [DEBUG] Connection to "ap-gew1.spotify.com:4070" failed: Connection refused (os error 111)
+[2025-11-07][00:16:52] [librespot_core::connection] [DEBUG] Retry access point...
+[2025-11-07][00:16:52] [librespot_core::connection] [DEBUG] Connection to AP established.
+[2025-11-07][00:16:52] [librespot_core::connection] [DEBUG] Authenticating with AP using AUTHENTICATION_STORED_SPOTIFY_CREDENTIALS
+[2025-11-07][00:16:53] [librespot_core::session] [INFO] Authenticated as 'djhugo.3' !
+[2025-11-07][00:16:53] [librespot_core::session] [DEBUG] drop Session
+[2025-11-07][00:16:53] [librespot_core::session] [DEBUG] drop Dispatch
+[2025-11-07][00:16:53] [librespot::component] [DEBUG] drop ApResolver
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "background", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "background", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "primary", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "secondary", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "title", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "highlight", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "highlight_bg", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "highlight_inactive_bg", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "playing", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "playing_selected", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "playing_bg", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "error", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "error_bg", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "statusbar_progress", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "statusbar_progress_bg", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "statusbar", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "statusbar_bg", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "cmdline", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "cmdline_bg", falling back to default
+[2025-11-07][00:16:53] [ncspot::theme] [WARN] Failed to parse color in "search_match", falling back to default
+[2025-11-07][00:16:53] [ncspot] [ERROR] No such device or address (os error 6)
