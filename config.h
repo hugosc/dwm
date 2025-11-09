@@ -39,8 +39,8 @@ static const int showstatus         = 1;        /* 0 means no status bar */
 static const int showfloating       = 0;        /* 0 means no floating indicator */
 static int topbar                   = 1;        /* 0 means bottom bar */
 
-static char dmenufont[]             = "monospace:size=10";
-static const char *fonts[]          = { "monospace:size=10", "Hack Nerd Font Mono:size=16", "NotoColorEmoji:pixelsize=14:antialias=true:autohint=true"  };
+static char dmenufont[]             = "Iosevka Nerd Font:size=10";
+static const char *fonts[]          = { "Iosevka Nerd Font:size=10", "NotoColorEmoji:pixelsize=14:antialias=true:autohint=true"  };
 
 /* default colors used if xrdb is not loaded */
 static char normbgcolor[]           = "#2e3440";
@@ -76,6 +76,7 @@ static const Rule rules[] = {
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ "fzfmenu", NULL,     "fzf", 	0,         1,          1,           1,        -1 }, /* xev */
+	{ "Nsxiv",   NULL,     NULL,           0,         1,          0,           1,        -1 }, /* nsxiv image preview */
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
@@ -241,12 +242,13 @@ static const Key keys[] = {
 
 /* script launch bindings */
 	{ MODKEY|ShiftMask,		XK_n,      spawn,       {.v = (const char*[]){ "dmenunotes", NULL } } },
-	{ MODKEY,				XK_v,      spawn,       {.v = (const char*[]){ "cliphist", "sel", NULL } } },
-	{ MODKEY,				XK_c,      spawn,       {.v = (const char*[]){ "cliphist", "add", NULL } } },
+	{ MODKEY,				XK_v,      spawn,       {.v = (const char*[]){ "/home/croc/.config/scripts/shortcuts-menus/cliphist", NULL } } },
+	{ MODKEY,				XK_c,      spawn,       {.v = (const char*[]){ "/bin/cliphist", "store", NULL } } },
 	{ MODKEY|ShiftMask,		XK_a,      spawn,       {.v = (const char*[]){ "dmenuvids", NULL } } },
 	{ MODKEY|ControlMask,	XK_a,      spawn,       {.v = (const char*[]){ "dmenuaudioswitch", NULL } } },
 	{ MODKEY|ShiftMask,		XK_d,      spawn,       {.v = (const char*[]){ "rip", NULL } } },
 	{ MODKEY,				XK_r,      spawn,       {.v = (const char*[]){ "rec", NULL } } },
+	{ MODKEY|ShiftMask,		XK_r,      spawn,       {.v = (const char*[]){ "/home/croc/.config/scripts/screenrecord", "toggle", NULL } } },
 	{ MODKEY|ShiftMask,		XK_grave,  spawn,       {.v = (const char*[]){ "define", NULL } } },
 	{ MODKEY|ShiftMask,		XK_w,      spawn,       SHCMD("/home/croc/.config/scripts/images-photos-wallpapers/fzfub-wallpapermenu") },
 	/* ThinkPad media keys (F1-F4): F1=mute, F2=vol-, F3=vol+, F4=mic-mute */
