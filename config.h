@@ -237,7 +237,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_f,          spawn,      {.v = (const char*[]){ "nautilus", NULL } } },
 	{ MODKEY,			XK_n,          spawn,      {.v = (const char*[]){ "kitty", "-e", "nvim", NULL } } },
 	{ MODKEY|ShiftMask,	XK_h,          spawn,      {.v = (const char*[]){ "st", "-e", "htop", NULL } } },
-	{ MODKEY|ShiftMask,	XK_p,          spawn,      {.v = (const char*[]){ "toggle-kitty-opacity", NULL } } },
+	{ MODKEY|ShiftMask,	XK_p,          spawn,      SHCMD("toggle-kitty-opacity ; emacsclient -e '(toggle-emacs-transparency)' 2>/dev/null &") },
 
 
 /* script launch bindings */

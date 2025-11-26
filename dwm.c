@@ -1990,6 +1990,8 @@ setup(void)
 	XSelectInput(dpy, root, wa.event_mask);
 	grabkeys(); /* register the keybinds in config.h */
 	focus(NULL); /* focus needs to start cleanly */
+	/* set keyboard repeat rate: 200ms delay, 50 Hz rate */
+	system("xset r rate 200 50");
 }
 
 void
