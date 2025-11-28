@@ -152,7 +152,7 @@ static const char *dmenucmd[] = {"dmenu_run", "-m",  dmenumon,       "-fn",
                                  dmenufont,   "-nb", normbgcolor,    "-nf",
                                  normfgcolor, "-sb", selbordercolor, "-sf",
                                  selfgcolor,  NULL};
-static const char *termcmd[] = {"/home/croc/.config/scripts/kitty-with-transparency", NULL};
+static const char *termcmd[] = {"kitty", NULL};
 
 static const Arg tagexec[] = {
     /* spawn application when tag is middle-clicked */
@@ -263,14 +263,14 @@ static const Key keys[] = {
      XK_f,
      spawn,
      {.v = (const char *[]){"nautilus", NULL}}},
-    {MODKEY, XK_n, spawn, {.v = (const char *[]){"/home/croc/.config/scripts/kitty-with-transparency", "-e", "nvim", NULL}}},
-    {MODKEY, XK_e, spawn, {.v = (const char *[]){"emacsclient", "-c", "-a", "emacs", NULL}}},
+    {MODKEY, XK_n, spawn, {.v = (const char *[]){"kitty", "-e", "nvim", NULL}}},
     {MODKEY | ShiftMask,
      XK_h,
      spawn,
      {.v = (const char *[]){"st", "-e", "htop", NULL}}},
     {MODKEY | ShiftMask, XK_p, spawn,
-     SHCMD("toggle-transparency")},
+     SHCMD("toggle-kitty-opacity ; emacsclient -e "
+           "'(toggle-emacs-transparency)' 2>/dev/null &")},
 
     /* script launch bindings */
     {MODKEY | ShiftMask,
