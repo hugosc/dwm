@@ -1,6 +1,7 @@
 ## dwm - dynamic window manager - croc's build
 
-![my build](dwm.png)
+![my build](dwm.png) ![my build2](dwm2.png)
+
 comes with no guarantees or warranties <sub>(this means things may not work as expected, or at all)</sub> :^)
 
 ## Patches Applied
