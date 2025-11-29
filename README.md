@@ -2,8 +2,6 @@
 
 ![my build](dwm.png) ![my build2](dwm2.png)
 
-comes with no guarantees or warranties <sub>(this means things may not work as expected, or at all)</sub> :^)
-
 ## Patches Applied
 
 Some occasional modification here and there;
@@ -64,7 +62,7 @@ All keybinds use `Mod` (Windows key) unless otherwise specified.
 | `Mod + Shift + Space` | Toggle floating                    |
 | `Mod + Space`         | Zoom (promote to master)           |
 | `Mod + Ctrl + Space`  | Focus master                       |
-| `Mod + Shift + S`     | Toggle sticky window               |
+| `Mod + S`     | Toggle sticky window               |
 | `Mod + H/L`           | Decrease/increase master area size |
 | `Mod + Shift + I`     | Increase number of master windows  |
 | `Mod + Ctrl + I`      | Decrease number of master windows  |
@@ -91,9 +89,10 @@ All keybinds use `Mod` (Windows key) unless otherwise specified.
 ### Applications
 
 | Keybind           | Action                       |
-| ----------------- | ---------------------------- |
+|-------------------|------------------------------|
 | `Mod + M`         | Open music player (ncspot)   |
 | `Mod + B`         | Open browser                 |
+| `Mod + E`         | Open Emacs                   |
 | `Mod + N`         | Open neovim (in kitty)       |
 | `Mod + Shift + F` | Open file manager (nautilus) |
 | `Mod + Shift + H` | Open system monitor (htop)   |
@@ -105,15 +104,11 @@ All keybinds use `Mod` (Windows key) unless otherwise specified.
 
 ### Screenshots & Misc
 
-| Keybind            | Action                      |
-| ------------------ | --------------------------- |
-| `Mod + Shift + F1` | Screenshot                  |
-| `Mod + Shift + F2` | Colored screenshot          |
-| `Mod + Shift + F8` | Lock and suspend            |
-| `Mod + F8`         | Lock screen (slock)         |
-| `Mod + F11`        | Play/pause music (termusic) |
-| `Mod + F12`        | Next track (termusic)       |
-| `Mod + F10`        | Previous track (termusic)   |
+| Keybind           | Action         |
+|-------------------|----------------|
+| `Mod + Shift + S` | Screenshot     |
+| `Mod + Shift + R` | Screen Record  |
+
 
 ### Statusbar
 
