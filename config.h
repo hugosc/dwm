@@ -342,8 +342,8 @@ static const Key keys[] = {
     {MODKEY, XK_F11, spawn, SHCMD("playerctl -p termusic play-pause")},
     {MODKEY | ShiftMask, XK_F11, spawn, SHCMD("playerctl play-pause")},
     {MODKEY, XK_F10, spawn, SHCMD("playerctl -p termusic previous")},
-    {MODKEY | ShiftMask, XK_F8, spawn, SHCMD("slock systemctl suspend -i")},
-    {MODKEY, XK_F8, spawn, SHCMD("slock")},
+	{MODKEY | ShiftMask, XK_backslash, spawn, SHCMD("slock systemctl suspend -i")},
+	{MODKEY, XK_backslash, spawn, SHCMD("slock")},
     {MODKEY, XK_F7, spawn, SHCMD("status-timer")},
     {MODKEY | ShiftMask, XK_F7, spawn, SHCMD("status-timer cleanup")},
 };
