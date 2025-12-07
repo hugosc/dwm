@@ -319,12 +319,12 @@ static const Key keys[] = {
     {0, XF86XK_AudioMicMute, spawn,
      SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle")},
 
-    /* brightness keys */
-    {0, XF86XK_MonBrightnessUp, spawn, SHCMD("brightnessctl set +5%")},
-    {0, XF86XK_MonBrightnessDown, spawn, SHCMD("brightnessctl set 5%-")},
+     /* brightness keys */
+     {0, XF86XK_MonBrightnessUp, spawn, SHCMD("brightnessctl set +1%")},
+     {0, XF86XK_MonBrightnessDown, spawn, SHCMD("brightnessctl set 1%-")},
 
     /* screenshot binds */
-    {MODKEY | ShiftMask, XK_s, spawn, SHCMD("screenshot full")},
+    {MODKEY | ShiftMask, XK_s, spawn, SHCMD("screenshot")},
     {MODKEY | ShiftMask, XK_F1, spawn, SHCMD("screenshot")},
     {MODKEY | ShiftMask, XK_F2, spawn, SHCMD("screenshot color")},
     {MODKEY | ShiftMask,
