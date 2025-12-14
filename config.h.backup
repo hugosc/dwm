@@ -49,12 +49,12 @@ static const char *fonts[] = {
     "NotoColorEmoji:pixelsize=14:antialias=true:autohint=true"};
 
 /* default colors used if xrdb is not loaded */
-static char normbgcolor[] = "#2e3440";
-static char normbordercolor[] = "#4c566a";
-static char normfgcolor[] = "#d8dee9";
-static char selfgcolor[] = "#eceff4";
-static char selbordercolor[] = "#a3be8c";
-static char selbgcolor[] = "#b48ead";
+static char normbgcolor[] = "#1f1c14";
+static char normbordercolor[] = "#1f1c14";
+static char normfgcolor[] = "#B5976E";
+static char selfgcolor[] = "#1f1c14";
+static char selbordercolor[] = "#928c82";
+static char selbgcolor[] = "#B5976E";
 
 static char *colors[][3] = {
     /*               fg           bg           border   */
@@ -152,7 +152,7 @@ static const char *dmenucmd[] = {"dmenu_run", "-m",  dmenumon,       "-fn",
                                  dmenufont,   "-nb", normbgcolor,    "-nf",
                                  normfgcolor, "-sb", selbordercolor, "-sf",
                                  selfgcolor,  NULL};
-static const char *termcmd[] = {"kitty", NULL};
+static const char *termcmd[] = {"/home/croc/.config/scripts/kitty-with-transparency", NULL};
 
 static const Arg tagexec[] = {
     /* spawn application when tag is middle-clicked */
@@ -263,14 +263,14 @@ static const Key keys[] = {
      XK_f,
      spawn,
      {.v = (const char *[]){"nautilus", NULL}}},
-    {MODKEY, XK_n, spawn, {.v = (const char *[]){"kitty", "-e", "nvim", NULL}}},
+    {MODKEY, XK_n, spawn, {.v = (const char *[]){"/home/croc/.config/scripts/kitty-with-transparency", "-e", "nvim", NULL}}},
+    {MODKEY, XK_e, spawn, {.v = (const char *[]){"emacsclient", "-c", "-a", "emacs", NULL}}},
     {MODKEY | ShiftMask,
      XK_h,
      spawn,
      {.v = (const char *[]){"st", "-e", "htop", NULL}}},
     {MODKEY | ShiftMask, XK_p, spawn,
-     SHCMD("toggle-kitty-opacity ; emacsclient -e "
-           "'(toggle-emacs-transparency)' 2>/dev/null &")},
+     SHCMD("toggle-transparency")},
 
     /* script launch bindings */
     {MODKEY | ShiftMask,
@@ -319,12 +319,12 @@ static const Key keys[] = {
     {0, XF86XK_AudioMicMute, spawn,
      SHCMD("pactl set-source-mute @DEFAULT_SOURCE@ toggle")},
 
-    /* brightness keys */
-    {0, XF86XK_MonBrightnessUp, spawn, SHCMD("brightnessctl set +5%")},
-    {0, XF86XK_MonBrightnessDown, spawn, SHCMD("brightnessctl set 5%-")},
+     /* brightness keys */
+     {0, XF86XK_MonBrightnessUp, spawn, SHCMD("brightnessctl set +1%")},
+     {0, XF86XK_MonBrightnessDown, spawn, SHCMD("brightnessctl set 1%-")},
 
     /* screenshot binds */
-    {MODKEY | ShiftMask, XK_s, spawn, SHCMD("screenshot full")},
+    {MODKEY | ShiftMask, XK_s, spawn, SHCMD("screenshot")},
     {MODKEY | ShiftMask, XK_F1, spawn, SHCMD("screenshot")},
     {MODKEY | ShiftMask, XK_F2, spawn, SHCMD("screenshot color")},
     {MODKEY | ShiftMask,
@@ -342,8 +342,8 @@ static const Key keys[] = {
     {MODKEY, XK_F11, spawn, SHCMD("playerctl -p termusic play-pause")},
     {MODKEY | ShiftMask, XK_F11, spawn, SHCMD("playerctl play-pause")},
     {MODKEY, XK_F10, spawn, SHCMD("playerctl -p termusic previous")},
-    {MODKEY | ShiftMask, XK_F8, spawn, SHCMD("slock systemctl suspend -i")},
-    {MODKEY, XK_F8, spawn, SHCMD("slock")},
+	{MODKEY | ShiftMask, XK_backslash, spawn, SHCMD("slock systemctl suspend -i")},
+	{MODKEY, XK_backslash, spawn, SHCMD("slock")},
     {MODKEY, XK_F7, spawn, SHCMD("status-timer")},
     {MODKEY | ShiftMask, XK_F7, spawn, SHCMD("status-timer cleanup")},
 };
