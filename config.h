@@ -54,12 +54,13 @@ static const Rule rules[] = {
      *	WM_CLASS(STRING) = instance, class
      *	WM_NAME(STRING) = title
      */
-    /* class     instance  title           tags mask  isfloating  isterminal
-       noswallow  monitor */
-    {"St",     NULL, NULL,        0, 0, 1, 0, -1},
-    {"fzfmenu",NULL, "fzf",      0, 1, 1, 1, -1},     /* fzf menu */
+     /* class     instance  title           tags mask  isfloating  isterminal
+        noswallow  monitor */
+     {"neofetch", NULL, "Welcome",   0, 1, 1, 0, -1},     /* neofetch startup window (must be before general St rule) */
+     {"st-256color", NULL, NULL,        0, 0, 1, 0, -1},
+    {"fzfmenu",NULL, NULL,        0, 1, 1, 1, -1},     /* fzf menu (any title) */
+    {"mpv",    NULL, NULL,        0, 1, 0, 1, -1},     /* mpv video player */
     {"Nsxiv",  NULL, NULL,        0, 1, 0, 1, -1},     /* nsxiv image preview */
-    {"kitty",  NULL, "Welcome",  0, 1, 1, 0, -1},     /* neofetch startup window */
     {NULL,      NULL, "Event Tester", 0, 0, 0, 1, -1}, /* xev */
 };
 
