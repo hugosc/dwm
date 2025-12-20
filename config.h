@@ -227,6 +227,8 @@ static const Key keys[] = {
     /* script launch bindings */
     {MODKEY | ShiftMask,
      XK_n,                spawn, {.v = (const char *[]) {"dmenunotes", NULL}}},
+    {MODKEY | ShiftMask,
+     XK_y,                spawn, {.v = (const char *[]) {"/home/croc/.config/scripts/ytplay-launcher", NULL}}},
     {MODKEY,
      XK_v,                spawn, {.v = (const char *[]) {"/home/croc/.config/scripts/shortcuts-menus/cliphist", NULL}}},
     {MODKEY,
@@ -235,8 +237,6 @@ static const Key keys[] = {
      XK_a,                spawn, {.v = (const char *[]) {"dmenuvids", NULL}}},
     {MODKEY | ControlMask,
      XK_a,                spawn, {.v = (const char *[]) {"dmenuaudioswitch", NULL}}},
-    {MODKEY | ShiftMask,  XK_d, spawn, {.v = (const char *[]) {"rip", NULL}}},
-    {MODKEY,              XK_r, spawn, {.v = (const char *[]) {"rec", NULL}}},
     {MODKEY | ShiftMask,
      XK_r,                spawn, {.v = (const char *[]) {"/home/croc/.config/scripts/screenrecord", "toggle", NULL}}},
     {MODKEY | ShiftMask,
