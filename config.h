@@ -167,7 +167,7 @@ static const Key keys[] = {
     {MODKEY,              XK_t,          setlayout,      {.v = &layouts[0]}},
     {MODKEY,              XK_f,          togglefullscreen,{0}}, /* fullscreen */
     {MODKEY | ShiftMask,  XK_m,          setlayout,      {.v = &layouts[2]}}, /* monocle */
-    {MODKEY,              XK_s,          setlayout,      {.v = &layouts[3]}}, /* spiral */
+    {MODKEY | ControlMask, XK_s,          setlayout,      {.v = &layouts[3]}}, /* spiral */
     {MODKEY | ShiftMask,  XK_t,          setlayout,      {.v = &layouts[4]}}, /* dwindle */
     {MODKEY | ControlMask,XK_space,      setlayout,      {0}},
     {MODKEY | ShiftMask,  XK_space,      togglefloating, {0}},
@@ -208,22 +208,22 @@ static const Key keys[] = {
             TAGKEYS(XK_9, 8)
     /* toggle statusbar pieces individually */
     {MODKEY | ControlMask, XK_t, togglebartitle,  {0}},
-    {MODKEY | ControlMask, XK_s, togglebarstatus, {0}},
     {MODKEY | ControlMask, XK_t, togglebartags,   {0}},
     {MODKEY | ControlMask,
      XK_e,                  togglebarcolor,       {0}}, /* swaps fg/bg */
     {MODKEY | ControlMask, XK_r, togglebarlt,     {0}},
     {MODKEY | ControlMask, XK_f, togglebarfloat,  {0}},
     /* application bindings */
-    {MODKEY,              XK_m, spawn, {.v = (const char *[]) {"st", "-e", "ncspot", NULL}}},
+    {MODKEY,              XK_m, spawn, {.v = (const char *[]) {"/home/croc/.config/scripts/audio-video/tmux-music", NULL}}},
+    {MODKEY,              XK_y, spawn, {.v = (const char *[]) {"st", "-e", "yazi", NULL}}},
     {MODKEY,              XK_b, spawn, {.v = (const char *[]) {BROWSER, NULL}}},
     {MODKEY | ShiftMask,
      XK_f,                spawn, {.v = (const char *[]) {"nautilus", NULL}}},
     {MODKEY,              XK_n, spawn, {.v = (const char *[]) {"st", "-e", "nvim", NULL}}},
     {MODKEY,              XK_e, spawn, {.v = (const char *[]) {"/home/croc/.local/bin/emacs-launcher", NULL}}},
     {MODKEY | ShiftMask,
-     XK_h,                spawn, {.v = (const char *[]) {"st", "-e", "htop", NULL}}},
-    {MODKEY | ShiftMask,  XK_p, spawn, SHCMD("toggle-transparency")},
+     XK_h,                spawn, {.v = (const char *[]) {"st", "-e", "btop", NULL}}},
+    {MODKEY | ShiftMask,  XK_p, spawn, SHCMD("/home/croc/.config/scripts/system/toggle-transparency")},
     /* script launch bindings */
     {MODKEY | ShiftMask,
      XK_n,                spawn, {.v = (const char *[]) {"dmenunotes", NULL}}},
