@@ -57,6 +57,7 @@ static const Rule rules[] = {
      /* class     instance  title           tags mask  isfloating  isterminal
         noswallow  monitor */
      {"neofetch", NULL, "Welcome",   0, 1, 1, 0, -1},     /* neofetch startup window (must be before general St rule) */
+     {"music", NULL, NULL,            0, 1, 0, 0, -1, 'm'},     /* floating ncspot/tmux-music scratchpad */
      {"st-256color", NULL, NULL,        0, 0, 1, 0, -1},
     {"fzfmenu",NULL, NULL,        0, 1, 1, 1, -1},     /* fzf menu (any title) */
     {"mpv",    NULL, NULL,        0, 1, 0, 1, -1},     /* mpv video player */
@@ -129,6 +130,9 @@ static const char *dmenucmd[] = {"dmenu_run", "-m",  dmenumon,       "-fn",
                                  normfgcolor, "-sb", selbordercolor, "-sf",
                                  selfgcolor,  NULL};
 static const char *termcmd[] = {"st", NULL};
+
+/* First arg is scratch key used in rules */
+static const char *scratchpadcmd[] = {"m", "/home/croc/.config/scripts/audio-video/tmux-music", NULL};
 static const Arg tagexec[] = {
     /* spawn application when tag is middle-clicked */
     {.v = termcmd}, /* 1 */
@@ -214,15 +218,17 @@ static const Key keys[] = {
     {MODKEY | ControlMask, XK_r, togglebarlt,     {0}},
     {MODKEY | ControlMask, XK_f, togglebarfloat,  {0}},
     /* application bindings */
-    {MODKEY,              XK_m, spawn, {.v = (const char *[]) {"/home/croc/.config/scripts/audio-video/tmux-music", NULL}}},
+    {MODKEY,              XK_m, togglescratch, {.v = scratchpadcmd}},
+    {MODKEY|ShiftMask,    XK_m, spawn, {.v = (const char *[]) {"/home/croc/.config/scripts/audio-video/tmux-music", NULL}}},
+
     {MODKEY,              XK_y, spawn, {.v = (const char *[]) {"st", "-e", "yazi", NULL}}},
     {MODKEY,              XK_b, spawn, {.v = (const char *[]) {BROWSER, NULL}}},
     {MODKEY | ShiftMask,
      XK_f,                spawn, {.v = (const char *[]) {"nautilus", NULL}}},
     {MODKEY,              XK_n, spawn, {.v = (const char *[]) {"st", "-e", "nvim", NULL}}},
     {MODKEY,              XK_e, spawn, {.v = (const char *[]) {"/home/croc/.local/bin/emacs-launcher", NULL}}},
-    {MODKEY | ShiftMask,
-     XK_h,                spawn, {.v = (const char *[]) {"st", "-e", "btop", NULL}}},
+    /* {MODKEY | ShiftMask,
+     XK_h,                spawn, {.v = (const char *[]) {"st", "-e", "btop", NULL}}}, */
     {MODKEY | ShiftMask,  XK_p, spawn, SHCMD("/home/croc/.config/scripts/system/toggle-transparency")},
     /* script launch bindings */
     {MODKEY | ShiftMask,
