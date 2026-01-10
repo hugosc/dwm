@@ -1,6 +1,6 @@
 ## dwm - dynamic window manager - croc's build
 
-![my build](dwm.png) ![my build2](dwm2.png)
+![my build](pics/dwm4.png) ![my build2](pics/dwm3.png)
 
 ## Patches Applied
 
@@ -23,6 +23,7 @@ Some occasional modification here and there;
 - [swallow](https://dwm.suckless.org/patches/swallow/)
 - [vanitygaps](https://dwm.suckless.org/patches/vanitygaps/)
 - [xrdb](https://dwm.suckless.org/patches/xrdb/)
+- [scratchpad](https://dwm.suckless.org/patches/scratchpads/)
 
 ## Basic Keybinds
 
@@ -88,19 +89,19 @@ All keybinds use `Mod` (Windows key) unless otherwise specified.
 
 ### Applications
 
-| Keybind           | Action                       |
-|-------------------|------------------------------|
-| `Mod + M`         | Open music player (ncspot)   |
-| `Mod + B`         | Open browser                 |
-| `Mod + E`         | Open Emacs                   |
-| `Mod + N`         | Open neovim (in kitty)       |
-| `Mod + Shift + F` | Open file manager (nautilus) |
-| `Mod + Shift + H` | Open system monitor (htop)   |
-| `Mod + V`         | Open clipboard history       |
-| `Mod + Shift + N` | Open notes menu              |
-| `Mod + Shift + A` | Open video menu              |
-| `Mod + Ctrl + A`  | Switch audio output          |
-| `Mod + Shift + W` | Wallpaper menu               |
+| Keybind           | Action                                  |
+|-------------------|-----------------------------------------|
+| `Mod + M`         | Toggle music player scratchpad (ncspot) |
+| `Mod + B`         | Open browser                            |
+| `Mod + E`         | Open Emacs                              |
+| `Mod + N`         | Open neovim (in kitty)                  |
+| `Mod + Shift + F` | Open file manager (nautilus)            |
+| `Mod + Shift + H` | Open system monitor (htop)              |
+| `Mod + V`         | Open clipboard history                  |
+| `Mod + Shift + N` | Open notes menu                         |
+| `Mod + Shift + A` | Open video menu                         |
+| `Mod + Ctrl + A`  | Switch audio output                     |
+| `Mod + Shift + W` | Wallpaper menu                          |
 
 ### Screenshots & Misc
 
