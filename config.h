@@ -1,7 +1,7 @@
 /* appearance */
 
 static unsigned int borderpx = 1;      /* border pixel of windows */
-static unsigned int snap = 32;         /* snap pixel */
+static unsigned int snap = 0;          /* snap pixel (0 disables snapping) */
 static const unsigned int gappih = 20; /* horiz inner gap between windows */
 static const unsigned int gappiv = 20; /* vert inner gap between windows */
 static const unsigned int gappoh =
@@ -60,6 +60,7 @@ static const Rule rules[] = {
      {"music", NULL, NULL,            0, 1, 0, 0, -1, 'm'},     /* floating ncspot/tmux-music scratchpad */
      {"st-256color", NULL, NULL,        0, 0, 1, 0, -1},
     {"fzfmenu",NULL, NULL,        0, 1, 1, 1, -1},     /* fzf menu (any title) */
+    {NULL, NULL, "emacs-everywhere", 0, 1, 0, 1, -1}, /* emacs-everywhere popup */
     {"mpv",    NULL, NULL,        0, 1, 0, 1, -1},     /* mpv video player */
     {"Nsxiv",  NULL, NULL,        0, 1, 0, 1, -1},     /* nsxiv image preview */
     {NULL,      NULL, "Event Tester", 0, 0, 0, 1, -1}, /* xev */
@@ -130,8 +131,8 @@ static const char *dmenucmd[] = {"dmenu_run", "-m",  dmenumon,       "-fn",
                                  normfgcolor, "-sb", selbordercolor, "-sf",
                                  selfgcolor,  NULL};
 static const char *termcmd[] = {"st", NULL};
-
 /* First arg is scratch key used in rules */
+
 static const char *scratchpadcmd[] = {"m", "/home/croc/.config/scripts/audio-video/tmux-music", NULL};
 static const Arg tagexec[] = {
     /* spawn application when tag is middle-clicked */
@@ -220,11 +221,10 @@ static const Key keys[] = {
     /* application bindings */
     {MODKEY,              XK_m, togglescratch, {.v = scratchpadcmd}},
     {MODKEY|ShiftMask,    XK_m, spawn, {.v = (const char *[]) {"/home/croc/.config/scripts/audio-video/tmux-music", NULL}}},
-
     {MODKEY,              XK_y, spawn, {.v = (const char *[]) {"st", "-e", "yazi", NULL}}},
     {MODKEY,              XK_b, spawn, {.v = (const char *[]) {BROWSER, NULL}}},
     {MODKEY | ShiftMask,
-     XK_f,                spawn, {.v = (const char *[]) {"nautilus", NULL}}},
+     XK_e,                spawn, SHCMD("emacsclient --eval '(emacs-everywhere)'")},
     {MODKEY,              XK_n, spawn, {.v = (const char *[]) {"st", "-e", "nvim", NULL}}},
     {MODKEY,              XK_e, spawn, {.v = (const char *[]) {"/home/croc/.local/bin/emacs-launcher", NULL}}},
     /* {MODKEY | ShiftMask,

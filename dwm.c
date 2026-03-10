@@ -700,8 +700,14 @@ clientmessage(XEvent *e)
                 || cme->data.l[2] == netatom[NetWMSticky])
             setsticky(c, (cme->data.l[0] == 1 || (cme->data.l[0] == 2 && !c->issticky)));
 	} else if (cme->message_type == netatom[NetActiveWindow]) {
-		if (c != selmon->sel && !c->isurgent)
-			seturgent(c, 1);
+		if (c && c != selmon->sel) {
+			if (c->mon != selmon) {
+				unfocus(selmon->sel, 0);
+				selmon = c->mon;
+			}
+			focus(c);
+			restack(selmon);
+		}
 	}
 }
 
