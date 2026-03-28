@@ -1,6 +1,6 @@
 #+title: Readme
 
-[[file:pics/dwm4.png][my build]] [[file:pics/dwm3.png][my build2]]
+[[file:pics/dwm4.png]][[file:pics/dwm3.png]]
 
 * Patches Applied
 
