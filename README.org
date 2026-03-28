@@ -30,7 +30,6 @@ Some occasional modification here and there;
 All keybinds use `Mod` (Windows key) unless otherwise specified.
 
 | Keybind                   | Action                              |
-|---------------------------+-------------------------------------|
 | `Mod + Enter`             | Open terminal                       |
 | `Mod + p`                 | Launch dmenu                        |
 | `Mod + q`                 | Kill focused window                 |
@@ -41,7 +40,6 @@ All keybinds use `Mod` (Windows key) unless otherwise specified.
 ** Navigation & Focus
 
 | Keybind             | Action                              |
-|-                    |                                     |
 | `Mod + j/k`         | Focus next/previous window in stack |
 | `Mod + Shift + j/k` | Move focused window in stack        |
 | `Mod + Tab`         | Switch to previous tag              |
@@ -53,7 +51,6 @@ All keybinds use `Mod` (Windows key) unless otherwise specified.
 ** Layout & Window Management
 
 | Keybind               | Action                             |
-|-                      |                                    |
 | `Mod + t`             | Tiled layout                       |
 | `Mod + f`             | Toggle fullscreen                  |
 | `Mod + Shift + t`     | Monocle layout                     |
@@ -68,7 +65,6 @@ All keybinds use `Mod` (Windows key) unless otherwise specified.
 **  Gaps Control
 
 | Keybind           | Action                       |
-|-                  |                              |
 | `Mod + +/-`       | Increase/decrease all gaps   |
 | `Mod + Alt + i`   | Increase/decrease inner gaps |
 | `Mod + Alt + o`   | Increase/decrease outer gaps |
@@ -78,7 +74,6 @@ All keybinds use `Mod` (Windows key) unless otherwise specified.
 ** Applications
 
 | Keybind           | Action                                  |
-|-------------------|-----------------------------------------|
 | `Mod + m`         | Toggle music player scratchpad (ncspot) |
 | `Mod + b`         | Open browser                            |
 | `Mod + e`         | Open Emacs                              |
@@ -90,13 +85,11 @@ All keybinds use `Mod` (Windows key) unless otherwise specified.
 ** Screenshots & Misc
 
 | Keybind           | Action         |
-|-------------------|----------------|
 | `Mod + Shift + s` | Screenshot     |
 | `Mod + Shift + r` | Screen Record  |
 
 ** Statusbar
 
 | Keybind           | Action                |
-|-                  |                       |
 | `Mod + Shift + b` | Toggle bar visibility |
 | `Mod + Ctrl + x`  | Refresh colors (xrdb) |
