@@ -208,6 +208,7 @@ static void detachstack(Client *c);
 static Monitor *dirtomon(int dir);
 static void drawbar(Monitor *m);
 static void drawbars(void);
+static void updatebaralphas(void);
 static void enternotify(XEvent *e);
 static void expose(XEvent *e);
 static void focus(Client *c);
@@ -262,6 +263,7 @@ static void spawnscratch(const Arg *arg);
 static void togglescratch(const Arg *arg);
 static void sighup(int unused);
 static void sigterm(int unused);
+static void sigusr1(int unused);
 static int stackpos(const Arg *arg);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
@@ -336,6 +338,7 @@ static void (*handler[LASTEvent]) (XEvent *) = { /* maps X event type to matchin
 static Atom wmatom[WMLast], netatom[NetLast];
 static int restart = 0;
 static int running = 1;
+static volatile sig_atomic_t transparency_changed = 0;
 static Cur *cursor[CurLast];
 static Clr **scheme;
 static Display *dpy;
@@ -889,6 +892,55 @@ dirtomon(int dir)
 	else
 		for (m = mons; m->next != selmon; m = m->next);
 	return m;
+}
+
+void
+updatebaralphas(void)
+{
+	Monitor *m;
+	FILE *fp;
+	char state[32] = {0};
+	unsigned long opacity;
+	const unsigned long transparent_opacity = 0xd8ccccff; /* 85% opaque (matches st alpha=0.85) */
+	const unsigned long opaque_opacity = 0xffffffff;      /* 100% opaque */
+	Atom atom_opacity;
+
+	/* Read transparency state file */
+	fp = fopen("/tmp/transparency-state", "r");
+	if (!fp)
+		return;
+	
+	if (!fgets(state, sizeof(state), fp)) {
+		fclose(fp);
+		return;
+	}
+	fclose(fp);
+	
+	/* Remove newline */
+	state[strcspn(state, "\n")] = 0;
+
+	/* Set opacity based on transparency state only (not gapless mode) */
+	int should_be_transparent = (strcmp(state, "transparent") == 0);
+	if (should_be_transparent == bar_transparent)
+		return; /* No change needed */
+	
+	bar_transparent = should_be_transparent;
+	opacity = (bar_transparent) ? transparent_opacity : opaque_opacity;
+
+	/* Get or create the _NET_WM_WINDOW_OPACITY atom */
+	atom_opacity = XInternAtom(dpy, "_NET_WM_WINDOW_OPACITY", False);
+	if (!atom_opacity)
+		return;
+
+	for (m = mons; m; m = m->next) {
+		if (m->barwin) {
+			XChangeProperty(dpy, m->barwin, atom_opacity, 
+			                XA_CARDINAL, 32, PropModeReplace,
+			                (unsigned char *)&opacity, 1);
+		}
+	}
+	
+	XSync(dpy, False);
 }
 
 void
@@ -1751,9 +1803,14 @@ run(void)
 	XEvent ev; /* store any type of X11 event received - keypress, mouse, etc. */
 	/* main event loop */
 	XSync(dpy, False); /* all pending X11 requests sent to X server */
-	while (running && !XNextEvent(dpy, &ev)) /* keep running while dwm is supposed to be running, and keep handling events from X */
+	while (running && !XNextEvent(dpy, &ev)) { /* keep running while dwm is supposed to be running, and keep handling events from X */
+		if (transparency_changed) {
+			updatebaralphas();
+			transparency_changed = 0;
+		}
 		if (handler[ev.type]) /* check if there's a handler for the event type */
 			handler[ev.type](&ev); /* call that handler and pass it the event data */
+	}
 }
 
 void
@@ -1940,6 +1997,7 @@ setup(void)
 
 	signal(SIGHUP, sighup);
 	signal(SIGTERM, sigterm);
+	signal(SIGUSR1, sigusr1);
 
 	/* init screen */
 	screen = DefaultScreen(dpy); /* gets the default screen number from the display (dpy) */
@@ -2053,6 +2111,12 @@ sigstatusbar(const Arg *arg)
 	sigqueue(statuspid, SIGRTMIN+statussig, sv);
 }
 
+
+void
+sigusr1(int unused)
+{
+	transparency_changed = 1;
+}
 
 void
 sighup(int unused)

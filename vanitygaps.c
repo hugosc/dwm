@@ -41,17 +41,69 @@ setgaps(int oh, int ov, int ih, int iv)
 void
 togglegaps(const Arg *arg)
 {
+	Client *c;
+	Monitor *m;
 	#if PERTAG_PATCH
 	selmon->pertag->enablegaps[selmon->pertag->curtag] = !selmon->pertag->enablegaps[selmon->pertag->curtag];
+	gapless = !selmon->pertag->enablegaps[selmon->pertag->curtag];
 	#else
 	enablegaps = !enablegaps;
+	gapless = !enablegaps;
 	#endif // PERTAG_PATCH
+	borderpx = gapless ? 0 : 1;
+	
+	/* Update border width for all clients */
+	for (m = mons; m; m = m->next) {
+		for (c = m->clients; c; c = c->next) {
+			c->bw = borderpx;
+		}
+	}
+	
+	/* Update bar transparency based on gapless mode */
+	updatebaralphas();
+	
+	/* Write gapless state and toggle picom shadows */
+	if (gapless) {
+		FILE *fp = fopen("/tmp/dwm-gapless-mode", "w");
+		if (fp) fclose(fp);
+	} else {
+		unlink("/tmp/dwm-gapless-mode");
+	}
+	
+	/* Toggle picom shadows */
+	if (fork() == 0) {
+		execlp("sh", "sh", "-c", "~/.config/scripts/system/toggle-picom-shadows", NULL);
+		exit(0);
+	}
+	
 	arrange(NULL);
 }
 
 void
 defaultgaps(const Arg *arg)
 {
+	Client *c;
+	Monitor *m;
+	gapless = 0;
+	borderpx = 1;
+	
+	/* Update border width for all clients */
+	for (m = mons; m; m = m->next) {
+		for (c = m->clients; c; c = c->next) {
+			c->bw = borderpx;
+		}
+	}
+	
+	/* Update bar transparency (should be off when gaps are reset) */
+	updatebaralphas();
+	
+	/* Clear gapless state and restore picom shadows */
+	unlink("/tmp/dwm-gapless-mode");
+	if (fork() == 0) {
+		execlp("sh", "sh", "-c", "~/.config/scripts/system/toggle-picom-shadows", NULL);
+		exit(0);
+	}
+	
 	setgaps(gappoh, gappov, gappih, gappiv);
 }
 

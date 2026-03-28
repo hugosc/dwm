@@ -19,6 +19,8 @@ static const int showlayout = 1;   /* 0 means no layout indicator */
 static const int showstatus = 1;   /* 0 means no status bar */
 static const int showfloating = 0; /* 0 means no floating indicator */
 static int topbar = 1;             /* 0 means bottom bar */
+static int gapless = 0;            /* 1 when gaps are disabled (set by togglegaps) */
+static int bar_transparent = 0;    /* 1 when bar should be transparent (checked from state file) */
 static char dmenufont[] = "Iosevka Nerd Font:size=10";
 static const char *fonts[] = {
     "Iosevka Nerd Font:size=10",
@@ -173,7 +175,7 @@ static const Key keys[] = {
     {MODKEY,              XK_f,          togglefullscreen,{0}}, /* fullscreen */
     {MODKEY | ShiftMask,  XK_m,          setlayout,      {.v = &layouts[2]}}, /* monocle */
     {MODKEY | ControlMask, XK_s,          setlayout,      {.v = &layouts[3]}}, /* spiral */
-    {MODKEY | ShiftMask,  XK_t,          setlayout,      {.v = &layouts[4]}}, /* dwindle */
+    {MODKEY | ShiftMask,  XK_t, setlayout,      {.v = &layouts[2]}}, /* dwindle */
     {MODKEY | ControlMask,XK_space,      setlayout,      {0}},
     {MODKEY | ShiftMask,  XK_space,      togglefloating, {0}},
     {MODKEY,              XK_space,      zoom,           {0}},
