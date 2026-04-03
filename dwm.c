@@ -120,7 +120,7 @@ struct Client { /* a window that dwm is managing */
 	int basew, baseh, incw, inch, maxw, maxh, minw, minh, hintsvalid; /* size hints */
 	int bw, oldbw; /* current and prev border widths */
 	unsigned int tags; /* bitmasks for which tags window is visible on */
-	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, issticky, isterminal, noswallow; /* window states */
+	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, isfakefullscreen, issticky, isterminal, noswallow; /* window states */
 	char scratchkey;
 	pid_t pid; /* pid of application in window - useful for swallowing */
 	Client *next; /* next client, in the linked list of all clients */
@@ -251,6 +251,7 @@ static int sendevent(Client *c, Atom proto);
 static void sendmon(Client *c, Monitor *m);
 static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
+static void setfakefullscreen(Client *c, int fullscreen);
 static void setfullscreen(Client *c, int fullscreen);
 static void setsticky(Client *c, int sticky);
 static void setlayout(const Arg *arg);
@@ -300,6 +301,8 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void xrdb(const Arg *arg);
 static void zoom(const Arg *arg);
+
+static int isheliumclient(Client *c);
 
 static pid_t getparentprocess(pid_t p);
 static int isdescprocess(pid_t p, pid_t c);
@@ -695,9 +698,20 @@ clientmessage(XEvent *e)
 		return;
 	if (cme->message_type == netatom[NetWMState]) {
 		if (cme->data.l[1] == netatom[NetWMFullscreen]
-		|| cme->data.l[2] == netatom[NetWMFullscreen])
-			setfullscreen(c, (cme->data.l[0] == 1 /* _NET_WM_STATE_ADD    */
-				|| (cme->data.l[0] == 2 /* _NET_WM_STATE_TOGGLE */ && !c->isfullscreen)));
+		|| cme->data.l[2] == netatom[NetWMFullscreen]) {
+			if (isheliumclient(c)) {
+				/* Helium/Chromium uses EWMH fullscreen for browser chrome (F11).
+				 * Treat it as "fake" fullscreen: keep the state so the app hides its
+				 * UI, but don't resize to monitor fullscreen. */
+				int fs = (cme->data.l[0] == 1 /* _NET_WM_STATE_ADD */) ? 1
+				       : (cme->data.l[0] == 0 /* _NET_WM_STATE_REMOVE */) ? 0
+				       : !c->isfakefullscreen; /* _NET_WM_STATE_TOGGLE */
+				setfakefullscreen(c, fs);
+			} else {
+				setfullscreen(c, (cme->data.l[0] == 1 /* _NET_WM_STATE_ADD    */
+					|| (cme->data.l[0] == 2 /* _NET_WM_STATE_TOGGLE */ && !c->isfullscreen)));
+			}
+		}
 
         if (cme->data.l[1] == netatom[NetWMSticky]
                 || cme->data.l[2] == netatom[NetWMSticky])
@@ -2740,13 +2754,116 @@ updatewindowtype(Client *c)
 	Atom state = getatomprop(c, netatom[NetWMState]);
 	Atom wtype = getatomprop(c, netatom[NetWMWindowType]);
 
-	if (state == netatom[NetWMFullscreen])
-		setfullscreen(c, 1);
+	if (state == netatom[NetWMFullscreen]) {
+		if (isheliumclient(c))
+			setfakefullscreen(c, 1);
+		else
+			setfullscreen(c, 1);
+	}
 	if (state == netatom[NetWMSticky]) {
 		setsticky(c, 1);
 	}
 	if (wtype == netatom[NetWMWindowTypeDialog])
 		c->isfloating = 1;
+}
+
+static int
+isheliumclient(Client *c)
+{
+	XClassHint ch = {0};
+	int ok = 0;
+
+	if (!c)
+		return 0;
+	if (!XGetClassHint(dpy, c->win, &ch))
+		return 0;
+
+	/* WM_CLASS: instance (res_name), class (res_class) */
+	if (ch.res_class && (!strcmp(ch.res_class, "Helium")
+			|| !strcmp(ch.res_class, "helium")
+			|| !strcmp(ch.res_class, "helium-browser")))
+		ok = 1;
+	if (!ok && ch.res_name && (!strcmp(ch.res_name, "helium")
+			|| !strcmp(ch.res_name, "helium-browser")))
+		ok = 1;
+
+	if (ch.res_name)
+		XFree(ch.res_name);
+	if (ch.res_class)
+		XFree(ch.res_class);
+	return ok;
+}
+
+static void
+setfakefullscreen(Client *c, int fullscreen)
+{
+	Atom actual;
+	int format;
+	unsigned long nitems, bytes_after;
+	unsigned char *data = NULL;
+	Atom *atoms = NULL;
+	unsigned long i;
+	int found = 0;
+
+	if (!c)
+		return;
+	if (!!fullscreen == !!c->isfakefullscreen)
+		return;
+
+	/* Update _NET_WM_STATE atom list to add/remove FULLSCREEN without resizing. */
+	if (XGetWindowProperty(dpy, c->win, netatom[NetWMState], 0L, (~0L), False, XA_ATOM,
+			&actual, &format, &nitems, &bytes_after, &data) != Success
+			|| actual != XA_ATOM || format != 32) {
+		if (data)
+			XFree(data);
+		data = NULL;
+		nitems = 0;
+	}
+
+	atoms = (Atom *)data;
+	for (i = 0; i < nitems; i++)
+		if (atoms[i] == netatom[NetWMFullscreen])
+			found = 1;
+
+	if (fullscreen) {
+		if (!found) {
+			Atom *newatoms = malloc(sizeof(Atom) * (nitems + 1));
+			if (!newatoms) {
+				if (data)
+					XFree(data);
+				return;
+			}
+			for (i = 0; i < nitems; i++)
+				newatoms[i] = atoms[i];
+			newatoms[nitems] = netatom[NetWMFullscreen];
+			XChangeProperty(dpy, c->win, netatom[NetWMState], XA_ATOM, 32,
+					PropModeReplace, (unsigned char *)newatoms, nitems + 1);
+			free(newatoms);
+		}
+	} else {
+		if (found) {
+			Atom *newatoms = NULL;
+			unsigned long j = 0;
+			if (nitems > 1) {
+				newatoms = malloc(sizeof(Atom) * (nitems - 1));
+				if (!newatoms) {
+					if (data)
+						XFree(data);
+					return;
+				}
+			}
+			for (i = 0; i < nitems; i++)
+				if (atoms[i] != netatom[NetWMFullscreen])
+					newatoms[j++] = atoms[i];
+			XChangeProperty(dpy, c->win, netatom[NetWMState], XA_ATOM, 32,
+					PropModeReplace, (unsigned char *)newatoms, j);
+			free(newatoms);
+		}
+	}
+
+	if (data)
+		XFree(data);
+	c->isfakefullscreen = fullscreen ? 1 : 0;
 }
 
 void
