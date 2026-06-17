@@ -64,8 +64,8 @@ static const Rule rules[] = {
     {"fzfmenu",NULL, NULL,        0, 1, 1, 1, -1},     /* fzf menu (any title) */
     {NULL, NULL, "emacs-everywhere", 0, 1, 0, 1, -1}, /* emacs-everywhere popup */
     {"mpv",    NULL, NULL,        0, 1, 0, 1, -1},     /* mpv video player */
-    {"Nsxiv",  NULL, NULL,        0, 1, 0, 1, -1},     /* nsxiv image preview */
-    {NULL,      NULL, "Event Tester", 0, 0, 0, 1, -1}, /* xev */
+     {"Nsxiv",  NULL, NULL,        0, 1, 0, 1, -1},     /* nsxiv image preview */
+     {NULL,      NULL, "Event Tester", 0, 0, 0, 1, -1}, /* xev */
 };
 
 #include "vanitygaps.c"

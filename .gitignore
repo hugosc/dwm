@@ -1,2 +1,7 @@
+swallow
+*.o
+*.bak
+*.backup
+*.log
+*.1
 dwm
-dwm.o
